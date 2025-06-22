@@ -1,0 +1,27 @@
+{
+  "name": "@minproducer/n8n-nodes-ytube-transcript-wlang",
+  "version": "1.0.0",
+  "description": "YouTube transcript node for n8n with language support",
+  "main": "index.js",
+  "keywords": ["n8n", "youtube", "transcript", "yt-dlp", "subtitles"],
+  "author": "minproducer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minproducer/n8n-nodes-ytube-transcript-wlang.git"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": [
+      "nodes/YoutubeTranscripter/YoutubeTranscripter.node.js"
+    ]
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "files": [
+    "nodes",
+    "README.md",
+    "LICENSE"
+  ]
+}
