@@ -1,4 +1,7 @@
 # @minproducer/n8n-nodes-ytube-transcript-wlang
+# n8n-nodes-ytube-transcript-wlang
+
+[![npm version](https://badge.fury.io/js/@min%2Fn8n-nodes-ytube-transcript-wlang.svg)](https://www.npmjs.com/package/@min/n8n-nodes-ytube-transcript-wlang)
 
 **YouTube Transcript Node for n8n** – Fetch subtitles/transcripts from YouTube videos using `yt-dlp`, now with **language selection support**.
 
