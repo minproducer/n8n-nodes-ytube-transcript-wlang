@@ -1,5 +1,1 @@
-module.exports = {
-    nodes: [
-        require('./nodes/YouTubeTranscriptWithLanguage/YouTubeTranscriptWithLanguage.node.js')
-    ]
-};
+module.exports = require('./nodes/YouTubeTranscriptWithLanguage/YouTubeTranscriptWithLanguage.node.js');

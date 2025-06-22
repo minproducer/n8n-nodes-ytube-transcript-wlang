@@ -1,12 +1,13 @@
 {
   "name": "n8n-nodes-ytube-transcript-wlang",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Custom n8n node to fetch YouTube subtitles with language and cookie support using yt-dlp",
   "main": "index.js",
   "type": "commonjs",
   "author": "minproducer",
   "license": "MIT",
   "keywords": [
+    "n8n-community-node-package",
     "n8n",
     "youtube",
     "transcript",
@@ -28,6 +29,7 @@
   },
   "n8n": {
     "n8nNodesApiVersion": 1,
+    "credentials": [],
     "nodes": [
       "nodes/YouTubeTranscriptWithLanguage/YouTubeTranscriptWithLanguage.node.js"
     ]
@@ -45,12 +47,10 @@
     "test:batch": "node tools/test-runner.js --file tools/video-list.json --save"
   },
   "files": [
-    "nodes/YouTubeTranscriptWithLanguage",
+    "nodes/",
     "index.js",
     "icon.svg",
     "README.md",
-    "LICENSE",
-    "tools/test-runner.js",
-    "tools/README_TestRunner_Bilingual.md"
+    "LICENSE"
   ]
 }

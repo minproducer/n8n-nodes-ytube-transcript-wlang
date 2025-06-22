@@ -437,4 +437,4 @@ class YoutubeTranscripter {
     }
 }
 
-module.exports = { nodeClass: YoutubeTranscripter };
+module.exports = { YoutubeTranscripter };
