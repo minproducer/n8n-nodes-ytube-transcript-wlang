@@ -1,0 +1,31 @@
+# Ignore node_modules just in case
+node_modules/
+
+# Logs
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Tests & local results
+test-results/
+*.test.js
+*.spec.js
+
+# Docs/output
+docs/
+*.pdf
+*.html
+
+# Temp files
+*.swp
+*.tmp
+*.bak
+
+# GitHub-specific
+.github/
+
+# IDE/editor folders
+.vscode/
+.idea/

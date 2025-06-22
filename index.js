@@ -1,5 +1,5 @@
 module.exports = {
     nodes: [
-        require('./nodes/YoutubeTranscripter/YoutubeTranscripter.node.js')
-    ],
+        require('./nodes/YouTubeTranscriptWithLanguage/YouTubeTranscriptWithLanguage.node.js')
+    ]
 };

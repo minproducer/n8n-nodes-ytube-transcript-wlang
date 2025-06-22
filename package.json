@@ -1,27 +1,56 @@
 {
   "name": "@minproducer/n8n-nodes-ytube-transcript-wlang",
-  "version": "1.0.0",
-  "description": "YouTube transcript node for n8n with language support",
+  "version": "1.1.1",
+  "description": "Custom n8n node to fetch YouTube subtitles with language and cookie support using yt-dlp",
   "main": "index.js",
-  "keywords": ["n8n", "youtube", "transcript", "yt-dlp", "subtitles"],
+  "type": "commonjs",
   "author": "minproducer",
   "license": "MIT",
+  "keywords": [
+    "n8n",
+    "youtube",
+    "transcript",
+    "yt-dlp",
+    "subtitles",
+    "custom-node",
+    "automation"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/minproducer/n8n-nodes-ytube-transcript-wlang.git"
   },
+  "bugs": {
+    "url": "https://github.com/minproducer/n8n-nodes-ytube-transcript-wlang/issues"
+  },
+  "homepage": "https://github.com/minproducer/n8n-nodes-ytube-transcript-wlang#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "n8n": {
     "n8nNodesApiVersion": 1,
     "nodes": [
-      "nodes/YoutubeTranscripter/YoutubeTranscripter.node.js"
+      "nodes/YouTubeTranscriptWithLanguage/YouTubeTranscriptWithLanguage.node.js"
     ]
   },
   "peerDependencies": {
     "n8n-workflow": "*"
   },
+  "devDependencies": {
+    "fs-extra": "^11.2.0"
+  },
+  "scripts": {
+    "test": "node tools/test-runner.js",
+    "test:cli": "node tools/test-runner.js",
+    "test:video": "node tools/test-runner.js --video dQw4w9WgXcQ --save",
+    "test:batch": "node tools/test-runner.js --file tools/video-list.json --save"
+  },
   "files": [
-    "nodes",
+    "nodes/YouTubeTranscriptWithLanguage",
+    "index.js",
+    "icon.svg",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "tools/test-runner.js",
+    "tools/README_TestRunner_Bilingual.md"
   ]
 }
