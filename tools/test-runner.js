@@ -24,7 +24,7 @@ class MockN8nContext {
     getInputData() {
         return this.inputData;
     }
-
+    // eslint-disable-next-line no-unused-vars
     getNodeParameter(paramName, itemIndex = 0) {
         return this.parameters[paramName];
     }
@@ -343,7 +343,8 @@ function parseArgs() {
             case '-v':
                 options.videoId = args[++i];
                 break;
-            case '--url':
+
+            case '--url': {
                 const url = args[++i];
                 const match = url.match(/[?&]v=([^&]+)/) || url.match(/youtu\.be\/([^?&]+)/);
                 if (match) {
@@ -353,48 +354,59 @@ function parseArgs() {
                     process.exit(1);
                 }
                 break;
+            }
+
             case '--lang':
             case '-l':
                 options.lang = args[++i];
                 break;
+
             case '--binary':
             case '-b':
                 options.binaryPath = args[++i];
                 break;
+
             case '--prefer-manual':
                 options.preferManual = args[++i] === 'true';
                 break;
+
             case '--format':
             case '-f':
                 options.outputFormat = args[++i];
                 break;
+
             case '--metadata':
             case '-m':
                 options.includeMetadata = args[++i] === 'true';
                 break;
+
             case '--save':
             case '-s':
                 options.saveResults = true;
                 break;
+
             case '--savefile':
                 options.saveFile = true;
                 break;
+
             case '--output-dir':
             case '-o':
                 options.outputDir = args[++i];
                 break;
+
             case '--file':
                 options.batchFile = args[++i];
                 break;
+
             case '--debug':
             case '-d':
                 process.env.DEBUG = 'true';
                 break;
+
             case '--help':
             case '-h':
                 showHelp();
                 process.exit(0);
-                break;
         }
     }
 
@@ -406,7 +418,6 @@ function parseArgs() {
 
     return options;
 }
-
 function showHelp() {
     console.log(`
 YouTube Transcript Node Test Runner

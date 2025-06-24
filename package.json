@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-ytube-transcript-wlang",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Custom n8n node to fetch YouTube subtitles with language and cookie support using yt-dlp",
   "main": "index.js",
   "type": "commonjs",
@@ -34,13 +34,19 @@
       "nodes/YouTubeTranscriptWithLanguage/YouTubeTranscriptWithLanguage.node.js"
     ]
   },
-  "peerDependencies": {
-    "n8n-workflow": "*"
+  "dependencies": {
+    "n8n-core": "^1.61.0",
+    "n8n-workflow": "^1.61.0",
+    "yt-dlp-wrap": "^2.3.12"
   },
   "devDependencies": {
-    "fs-extra": "^11.2.0"
+    "@eslint/js": "^9.29.0",
+    "eslint": "^8.57.1",
+    "fs-extra": "^11.2.0",
+    "globals": "^16.2.0"
   },
   "scripts": {
+    "lint": "eslint .",
     "test": "node tools/test-runner.js",
     "test:cli": "node tools/test-runner.js",
     "test:video": "node tools/test-runner.js --video dQw4w9WgXcQ --save",

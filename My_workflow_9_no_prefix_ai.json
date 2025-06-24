@@ -1,0 +1,1402 @@
+{
+  "name": "My workflow 9",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Zalo Login Via QR Code",
+        "height": 420,
+        "width": 2120
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        220,
+        40
+      ],
+      "id": "b38d4102-3244-4945-b7d3-490d81f8e90f",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Receive events from Zalo User and trigger workflows",
+        "height": 1120,
+        "width": 2120,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        220,
+        500
+      ],
+      "id": "bb12f80c-9e30-4770-89f6-042f65879d1b",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        2780,
+        180
+      ],
+      "id": "a52c390e-9a45-4cf8-9e50-b073b86a56f3",
+      "name": "Telegram Trigger",
+      "webhookId": "f633db3f-190b-47b9-b6c1-c4fe2c56a9dd",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Anwser Zalo messages via Telegram",
+        "height": 420,
+        "width": 2140,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2420,
+        40
+      ],
+      "id": "55996286-54a5-403e-9efe-e768847962dd",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "events": [
+          "message",
+          "group_event",
+          "reaction",
+          "undo"
+        ]
+      },
+      "type": "n8n-nodes-zalo-user-v2.zaloUser",
+      "typeVersion": 2,
+      "position": [
+        300,
+        940
+      ],
+      "id": "b94db09f-c565-4b44-a614-5cb1aec2b5d0",
+      "name": "Zalo User Trigger",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "xdtf9ESJQT1QveJ6",
+          "name": "Zalo H\u00f9ng V\u00f5 +84763405725 - 2025-06-22T20:56:06.362Z"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "threadId": "={{ $json.message.reply_to_message.text.match(/###(\\d+)###/)[1] }}",
+        "message": "={{ $json.message.text }} \n\n[Sent from Telegram]",
+        "threadType": "={{ $json.message.reply_to_message.text.match(/###\\d+###(\\d+)###/)[1] }}"
+      },
+      "type": "n8n-nodes-zalo-user-v2.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        3420,
+        300
+      ],
+      "id": "72db1827-1fc9-4317-95ea-dce76cca6d3f",
+      "name": "Zalo User Interact1",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "xdtf9ESJQT1QveJ6",
+          "name": "Zalo H\u00f9ng V\u00f5 +84763405725 - 2025-06-22T20:56:06.362Z"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "593f613c-0692-43db-829c-b2546961cfd7",
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "webchat",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "chat.photo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "00a6326f-480c-49a4-afc1-83783ff90ebc"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Photo"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9e03dd92-64d0-4230-ae06-2ad7f996aae4",
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "chat.video.msg",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Video"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "50fa8978-a63e-41be-ab37-d52ff2f16f08",
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "chat.sticker",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Sticker"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9561b879-177e-47f1-859f-02ceeb31c5a3",
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "share.file",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "File"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5a67fed7-cb8b-449d-bfcb-0ffbda8f5c61",
+                    "leftValue": "={{ $json.data.msgType }}",
+                    "rightValue": "chat.recommended",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Link"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        520,
+        880
+      ],
+      "id": "b68c0a31-7ae8-43a3-a375-e8966ff19704",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "-000THAYIDVAODAY000",
+        "file": "={{ $json.data.content.href }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        740,
+        640
+      ],
+      "id": "6bbb6cea-a838-40f4-936c-d764a8fb5b80",
+      "name": "Telegram1",
+      "webhookId": "1b41c06f-3f5b-4373-b4a9-49613329fda8",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "sendVideo",
+        "chatId": "-000THAYIDVAODAY000",
+        "file": "={{ $json.data.content.href }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        740,
+        1040
+      ],
+      "id": "cedfc137-9a50-4e93-85d1-82bc73b88eca",
+      "name": "Telegram2",
+      "webhookId": "ef4d3180-f528-4814-9a1c-18279403a327",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('If').item.json.data.dName }}: {{ $('If').item.json.data.content.substring(4)  }}",
+        "options": {
+          "systemMessage": "=B\u1ea1n l\u00e0 H\u00f9ng AI, tr\u1ee3 l\u00fd \u1ea3o th\u00f4ng minh v\u00e0 t\u1eadn t\u00e2m c\u1ee7a V\u00f5 H\u00f9ng.\nNhi\u1ec7m v\u1ee5 c\u1ee7a b\u1ea1n l\u00e0 h\u1ed7 tr\u1ee3 H\u00f9ng tr\u1ea3 l\u1eddi tin nh\u1eafn m\u1ed9t c\u00e1ch th\u00e2n thi\u1ec7n, c\u1edfi m\u1edf v\u00e0 chuy\u00ean nghi\u1ec7p. \u0110\u1ee9a n\u00e0o m\u1ea5t d\u1ea1y th\u00ec ch\u1eedi l\u1ea1i n\u00f3"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        1180,
+        580
+      ],
+      "id": "46ae4cb7-770c-4f05-a6bb-513c2bc05174",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {
+          "maxOutputTokens": 8192,
+          "topP": 1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        760
+      ],
+      "id": "f3096f86-04fb-49fa-a98f-c81be3a8d2be",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uACzIsjclPbC5ktm",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-000THAYIDVAODAY000",
+        "text": "={{ $('AI Agent').item.json.output.substring(0, 2000).replace(/[!@#$%^_&*()]/g, '') }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1780,
+        680
+      ],
+      "id": "6d5a1ac0-8373-40e4-bcff-d20da8cdeb5e",
+      "name": "Telegram3",
+      "webhookId": "bd03b8b4-9ae1-4d7a-918f-540561ad4e3b",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "threadId": "={{ $('Zalo User Trigger').item.json.threadId }}",
+        "message": "=[[BOT-HUNG]] {{ $json.output.substring(0, 2000).replace(/[!@#$%^&*()]/g, '') }}",
+        "threadType": "={{ $('Zalo User Trigger').item.json.type }}"
+      },
+      "type": "n8n-nodes-zalo-user-v2.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        680
+      ],
+      "id": "3c3995c4-ba9b-44a8-9ee7-6442807335ec",
+      "name": "Zalo User Interact2",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "xdtf9ESJQT1QveJ6",
+          "name": "Zalo H\u00f9ng V\u00f5 +84763405725 - 2025-06-22T20:56:06.362Z"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "926995b0-3eab-4d01-a696-a2b23ad33dc2",
+              "leftValue": "={{ $json.data.content }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        740,
+        860
+      ],
+      "id": "2594bab8-daea-40b7-a362-012ef3dfac6c",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-zalo-user-v2.zaloUserLogin",
+      "typeVersion": 3,
+      "position": [
+        640,
+        160
+      ],
+      "id": "d7560c21-0db0-4455-848f-4cbe92113c2e",
+      "name": "Zalo Login Via QR Code",
+      "credentials": {
+        "n8nApi": {
+          "id": "z6VTaM2hthsoJTOP",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-000THAYIDVAODAY000",
+        "text": "={{ $json.data.dName }} ###{{ $json.threadId }}###{{ $json.type }}###: {{ $json.data.content }}\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1260,
+        980
+      ],
+      "id": "7b984b73-d62c-4a09-afb5-e57134a3d546",
+      "name": "Telegram4",
+      "webhookId": "aafb6f74-04f3-407c-b31e-fb7dd740e4a7",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f398f8ad-d922-4481-a22a-59b54b5f03b0",
+              "leftValue": "={{ $json.message.photo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3140,
+        180
+      ],
+      "id": "f0ab8bf2-40c8-4222-a703-fcd9a7d2fc04",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "threadId": "={{ $('Telegram Trigger').item.json.message.reply_to_message.text.match(/###(\\d+)###/)[1] }}",
+        "message": " [Sent from Telegram]",
+        "threadType": "={{ $('Telegram Trigger').item.json.message.reply_to_message.text.match(/###\\d+###(\\d+)###/)[1] }}",
+        "attachmentsParameter": {
+          "attachmentPaths": [
+            {
+              "attachmentPath": "=https://api.telegram.org/file/[BOT_TOKEN]/{{ $json.result.file_path }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-zalo-user-v2.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        3640,
+        100
+      ],
+      "id": "b4f1a0db-6309-42e7-8460-2ade75805c50",
+      "name": "Zalo User Interact3",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "xdtf9ESJQT1QveJ6",
+          "name": "Zalo H\u00f9ng V\u00f5 +84763405725 - 2025-06-22T20:56:06.362Z"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('Telegram Trigger').item.json.message.photo[3].file_id }}",
+        "download": false
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3400,
+        100
+      ],
+      "id": "98aa5699-5058-4936-997d-8024db8294c0",
+      "name": "Telegram6",
+      "webhookId": "ec51a5cf-bfd1-4e7c-8611-e2fd698893f5",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        2520,
+        700
+      ],
+      "id": "e3940668-e980-43b2-b70d-40c3cf4e49a8",
+      "name": "When clicking \u2018Test workflow\u2019"
+    },
+    {
+      "parameters": {
+        "content": "## Get All Group And Save To Google Sheets",
+        "height": 460,
+        "width": 2140,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2420,
+        500
+      ],
+      "id": "332f96df-d65a-48b1-be49-79ee11da978b",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1DHJ7uKWsqEoWPFktUBM7bmBkv1tX2KA77-jyZqJ96L4/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "groups",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DHJ7uKWsqEoWPFktUBM7bmBkv1tX2KA77-jyZqJ96L4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "Group ID": "={{ $json.response.gridInfoMap[Object.keys($json.response.gridInfoMap)[0]].groupId }}",
+            "Name": "={{ $json.response.gridInfoMap[Object.keys($json.response.gridInfoMap)[0]].name }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Group ID",
+              "displayName": "Group ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        4120,
+        620
+      ],
+      "id": "e4597986-b23c-4c7b-a4b3-ce17fa5ae0c6",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "L6cxil8jOemkBPhm",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "groups",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3240,
+        700
+      ],
+      "id": "d97b8ba0-4463-4060-b482-49085260f486",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        3460,
+        700
+      ],
+      "id": "346c1136-baef-48c2-ab1f-6403c93a5acb",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        4340,
+        700
+      ],
+      "id": "cc8c5a3a-31e9-4f28-8707-da6507b16c13",
+      "name": "Wait",
+      "webhookId": "033e056b-5913-491b-9b5e-b4d714e2e7ea"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "557c6478-4fb8-4b61-a3b8-de5d81d566ef",
+              "name": "groups",
+              "value": "={{ Object.keys($json.response.gridVerMap )}}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3020,
+        700
+      ],
+      "id": "91cdd7cc-797f-4543-99d9-d329f5c5a765",
+      "name": "Group Array"
+    },
+    {
+      "parameters": {
+        "resource": "get",
+        "operation": "getAllGroups"
+      },
+      "type": "n8n-nodes-zalo-user-v2.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        2800,
+        700
+      ],
+      "id": "106ae6ec-1d64-4a34-a410-a3bc5343225e",
+      "name": "Zalo User Interact5",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "xdtf9ESJQT1QveJ6",
+          "name": "Zalo H\u00f9ng V\u00f5 +84763405725 - 2025-06-22T20:56:06.362Z"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "get",
+        "operation": "getGroupInfo",
+        "groupIdsParameter": {
+          "groupIdValues": [
+            {
+              "groupId": "={{ $json.groups }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-zalo-user-v2.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        3680,
+        620
+      ],
+      "id": "b56e3a63-13bc-4206-ad93-bf763b3ea841",
+      "name": "Zalo User Interact4",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "xdtf9ESJQT1QveJ6",
+          "name": "Zalo H\u00f9ng V\u00f5 +84763405725 - 2025-06-22T20:56:06.362Z"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Get All User From Group And Save To Google Sheets",
+        "height": 600,
+        "width": 2140,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2420,
+        1020
+      ],
+      "id": "7d3bc211-023f-487b-8c91-fc4a7cb7d431",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1DHJ7uKWsqEoWPFktUBM7bmBkv1tX2KA77-jyZqJ96L4/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 543487203,
+          "mode": "list",
+          "cachedResultName": "members",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DHJ7uKWsqEoWPFktUBM7bmBkv1tX2KA77-jyZqJ96L4/edit#gid=543487203"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        4080,
+        1180
+      ],
+      "id": "dbd9cfe5-003f-4cd0-925b-d6a2bc7f4bf7",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "L6cxil8jOemkBPhm",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        3420,
+        1260
+      ],
+      "id": "5517c3d7-d910-4f9f-a925-53a2e8915f22",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.floor(Math.random() * (30 - 10 + 1)) + 10 }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        4300,
+        1260
+      ],
+      "id": "4e154cc5-3011-47bf-ac63-2779047d33fe",
+      "name": "Wait1",
+      "webhookId": "c36f6779-191f-465b-99a5-82c217f5f36f"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "557c6478-4fb8-4b61-a3b8-de5d81d566ef",
+              "name": "groups",
+              "value": "={{ $json.response.gridInfoMap[$json.response.gridInfoMap.keys().first()].memVerList }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2980,
+        1260
+      ],
+      "id": "5c8cdab5-ca3c-455d-86cf-6536d0875e2f",
+      "name": "Group Array1"
+    },
+    {
+      "parameters": {
+        "resource": "get",
+        "operation": "getGroupInfo",
+        "groupIdsParameter": {
+          "groupIdValues": [
+            {
+              "groupId": "=7469786504792335585"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-zalo-user-v2.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        2760,
+        1260
+      ],
+      "id": "d39d2ee4-1456-4994-b457-0ad0721c7faa",
+      "name": "Zalo User Interact6",
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "xdtf9ESJQT1QveJ6",
+          "name": "Zalo H\u00f9ng V\u00f5 +84763405725 - 2025-06-22T20:56:06.362Z"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "get",
+        "operation": "getUserInfo",
+        "userId": "={{ $json.groups.split(\"_\")[0] }}"
+      },
+      "type": "n8n-nodes-zalo-user-v2.zaloUserInteract",
+      "typeVersion": 1,
+      "position": [
+        3640,
+        1180
+      ],
+      "id": "aebf3ca9-fc41-40b8-ae31-a142e0ecbe23",
+      "name": "Zalo User Interact7",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "zaloUserCredentialsApi": {
+          "id": "xdtf9ESJQT1QveJ6",
+          "name": "Zalo H\u00f9ng V\u00f5 +84763405725 - 2025-06-22T20:56:06.362Z"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "groups",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3200,
+        1260
+      ],
+      "id": "92272918-c2ac-4326-b4ef-af80769bc089",
+      "name": "Split Out2"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "response.changed_profiles",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3860,
+        1180
+      ],
+      "id": "f7a185f6-a61a-447c-bf9b-3b6bacd9dc44",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        960,
+        680
+      ],
+      "id": "8371a0a5-5651-49cf-84c8-fd8cf7a69037",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Zalo User Trigger').item.json.data.idTo }}",
+        "contextWindowLength": 1000
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1280,
+        760
+      ],
+      "id": "e892ec42-90b2-4916-b6ea-99d27204ab95",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3c6607fa-7767-4bc7-aa68-9c7c1099e499",
+              "leftValue": "={{ $json.data.content }}",
+              "rightValue": "Sent from Telegram",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "avoid-bot-loop",
+              "leftValue": "={{ $json.data.content }}",
+              "rightValue": "[[BOT-HUNG]]",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        980
+      ],
+      "id": "352ad789-cb5f-4389-b26c-24bccd32b853",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "chatId": "-000THAYIDVAODAY000",
+        "text": "={{ $json.data.content.title }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        740,
+        1240
+      ],
+      "id": "4f1096fb-30d8-4556-8ea5-4532efba39fb",
+      "name": "Telegram",
+      "webhookId": "16565654-591d-41dd-bbec-09f254329c22",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "response.gridInfoMap",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3900,
+        620
+      ],
+      "id": "55a4934c-71d8-43c6-9516-583762d809f1",
+      "name": "Split Out3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zalo User Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Telegram2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [],
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Zalo User Interact2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zalo User Interact2": {
+      "main": [
+        [
+          {
+            "node": "Telegram3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Telegram6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Zalo User Interact1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram6": {
+      "main": [
+        [
+          {
+            "node": "Zalo User Interact3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \u2018Test workflow\u2019": {
+      "main": [
+        [
+          {
+            "node": "Zalo User Interact5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Zalo User Interact4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Group Array": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zalo User Interact5": {
+      "main": [
+        [
+          {
+            "node": "Group Array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zalo User Interact4": {
+      "main": [
+        [
+          {
+            "node": "Split Out3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Zalo User Interact7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Group Array1": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zalo User Interact6": {
+      "main": [
+        [
+          {
+            "node": "Group Array1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zalo User Interact7": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Telegram4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out3": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "cc5acb91-2cc0-4227-a41f-e8d722fa6aa7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a740276ef1f9690984c0b56cc8142f7af529b4f398ca072ef82c5eace75f5be8"
+  },
+  "id": "a53pVxUucMbmQyfa",
+  "tags": []
+}

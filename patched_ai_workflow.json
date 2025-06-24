@@ -1,0 +1,40 @@
+{
+  "name": "My workflow 9",
+  "nodes": [
+    {
+      "name": "Zalo User Interact2",
+      "parameters": {
+        "threadId": "={{ $('Zalo User Trigger').item.json.threadId }}",
+        "message": "=[[BOT-HUNG]] {{ $json.output.substring(0, 2000).replace(/[!@#$%^&*()]/g, '') }}",
+        "threadType": "={{ $('Zalo User Trigger').item.json.type }}"
+      }
+    },
+    {
+      "name": "If1",
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "id": "some-id",
+              "leftValue": "={{ $json.data.content }}",
+              "rightValue": "Sent from Telegram",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "avoid-bot-loop",
+              "leftValue": "={{ $json.data.content }}",
+              "rightValue": "[[BOT-HUNG]]",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
